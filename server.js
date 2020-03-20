@@ -13,7 +13,10 @@ app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cookieParser())
 // CORS
-app.use(cors())
+if (process.env.NODE_ENV === 'development') {
+  // This logic is only for browser to browser communication.
+  app.use(cors({ origin: `${process.env.CLIENT_URL}` }))
+}
 
 // Routes
 app.get('/api', function(res, res) {

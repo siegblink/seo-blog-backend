@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       required: true,
       unique: true,
-      lowercase: ture,
+      lowercase: true,
     },
     profile: {
       type: String,
@@ -61,14 +61,14 @@ userSchema
     // Generate salt
     this.salt = this.makeSalt()
     // Encrypt password
-    this.hashed_password - this.encryptPassword(password)
+    this.hashed_password = this.encryptPassword(password)
   })
   .get(function() {
     return this._password
   })
 
 userSchema.methods = {
-  authenticate: function (plainText) {
+  authenticate: function(plainText) {
     return this.encryptPassword(plainText) === this.hashed_password
   },
   encryptPassword: function(password) {
